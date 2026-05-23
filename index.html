@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>СБУ | ЦСО "А" | Служебные регламенты</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0B0D10;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
+            color: #E8EDF5;
+            line-height: 1.5;
+        }
+
+        :root {
+            --bg-dark: #0B0D10;
+            --surface: #13161C;
+            --surface-light: #1A1F28;
+            --gold: #D4AF37;
+            --gold-dim: #B88E2F;
+            --blue: #1E5A9C;
+            --blue-light: #2E7ABF;
+            --text-primary: #F0F3FA;
+            --text-secondary: #A0AABF;
+            --border: #262C36;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .site-header {
+            padding: 24px 0 16px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 32px;
+        }
+
+        .logo-area h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--gold), #F5E18B);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo-area p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 6px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 28px 0 20px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 12px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 8px 18px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: 40px;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .tab-btn:hover {
+            color: var(--gold);
+            background: rgba(212, 175, 55, 0.08);
+        }
+
+        .tab-btn.active {
+            color: var(--gold);
+            background: rgba(212, 175, 55, 0.12);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .page.active-page {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 1.6rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            border-left: 3px solid var(--gold);
+            padding-left: 14px;
+        }
+
+        .card-sub {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .list {
+            list-style: none;
+            margin-top: 0.5rem;
+        }
+
+        .list li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.2rem;
+            position: relative;
+            color: var(--text-primary);
+        }
+
+        .list li::before {
+            content: "—";
+            color: var(--gold);
+            position: absolute;
+            left: 0;
+        }
+
+        .badge {
+            background: rgba(30, 90, 156, 0.2);
+            border: 1px solid var(--blue-light);
+            padding: 2px 10px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #8AB3D4;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 1rem 0;
+        }
+
+        .bind-card {
+            background: #0A0C0F;
+            border-radius: 14px;
+            padding: 12px 16px;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 0.85rem;
+            border-left: 3px solid var(--gold-dim);
+            margin: 12px 0;
+            word-break: break-all;
+            color: #C5D0E6;
+        }
+
+        .bind-code {
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        input, textarea {
+            width: 100%;
+            background: var(--surface-light);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 10px 14px;
+            color: white;
+            font-size: 0.9rem;
+            font-family: inherit;
+            transition: 0.15s;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .btn {
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid var(--gold);
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 500;
+            color: var(--gold);
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.85rem;
+        }
+
+        .btn:hover {
+            background: var(--gold);
+            color: #0B0D10;
+        }
+
+        .generated-binds {
+            margin-top: 1.5rem;
+        }
+
+        .copy-btn {
+            background: var(--blue);
+            border: none;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            color: white;
+            margin-left: 12px;
+            cursor: pointer;
+        }
+
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        /* таблицы дресс-кода */
+        .dress-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
+        }
+        .dress-table th, .dress-table td {
+            border: 1px solid var(--border);
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+        .dress-table th {
+            background: var(--surface-light);
+            color: var(--gold);
+            font-weight: 600;
+        }
+        .section-subtitle {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 1.2rem 0 0.5rem;
+            color: var(--blue-light);
+            border-left: 2px solid var(--blue-light);
+            padding-left: 10px;
+        }
+        .hierarchy-node {
+            background: var(--surface-light);
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            text-align: center;
+            font-weight: 500;
+        }
+        .hierarchy-row {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 0.5rem 0;
+        }
+        .hierarchy-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 0.8rem 1.2rem;
+            min-width: 200px;
+            text-align: center;
+        }
+        .hierarchy-card strong {
+            color: var(--gold);
+        }
+
+        footer {
+            margin-top: 48px;
+            padding: 24px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                padding: 0 16px;
+            }
+            .card {
+                padding: 1.2rem;
+            }
+            .dress-table th, .dress-table td {
+                padding: 6px 8px;
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header class="site-header">
+        <div class="logo-area">
+            <h1>СЛУЖБА БЕЗОПАСНОСТИ УКРАИНЫ</h1>
+            <p>Центр специальных операций "А" | Спецподразделение "Альфа" | Сервер MST Operation</p>
+        </div>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="tab-btn active" data-page="ranks">Звания</button>
+        <button class="tab-btn" data-page="penalties">Взыскания</button>
+        <button class="tab-btn" data-page="arsenal">Вооружение</button>
+        <button class="tab-btn" data-page="hierarchy">Иерархия</button>
+        <button class="tab-btn" data-page="dresscode">Дресс-код</button>
+        <button class="tab-btn" data-page="docs">Документы / Бинды</button>
+        <button class="tab-btn" data-page="useful">Полезные бинды</button>
+        <button class="tab-btn" data-page="weaponbinds">Бинды на оружие</button>
+    </div>
+
+    <!-- СТРАНИЦА 1: ЗВАНИЯ -->
+    <div id="ranks" class="page active-page">
+        <div class="card">
+            <div class="card-title">Система повышения званий</div>
+            <div class="card-sub">Требования для аттестации в ЦСО "Альфа"</div>
+            <div class="list">
+                <li><strong>МЛЕЙТ → ЛЕЙТЕНАНТ</strong><br>— Прохождение курсантской школы<br>— Написание одного рапорта</li>
+                <li style="margin-top: 16px;"><strong>ЛЕЙТЕНАНТ → СТАРШИЙ ЛЕЙТЕНАНТ</strong><br>— 8 рапортов о проделанной работе<br>— Положительная характеристика от командирского состава</li>
+                <li style="margin-top: 16px;"><strong>СТАРШИЙ ЛЕЙТЕНАНТ → КАПИТАН</strong><br>— 13 рапортов о проделанной работе<br>— Положительная характеристика<br>— Отличиться положительными качествами в составе</li>
+            </div>
+            <div class="badge" style="margin-top: 16px; display: inline-block;">Все рапорты фиксируются по установленной форме</div>
+        </div>
+    </div>
+
+    <!-- СТРАНИЦА 2: ВЗЫСКАНИЯ -->
+    <div id="penalties" class="page">
+        <div class="card">
+            <div class="card-title">Снятие дисциплинарных взысканий</div>
+            <div class="list">
+                <li><strong>ВЫГОВОР (обычный)</strong><br>— 3 рапорта о проделанной работе<br>— Ходатайство на снятие выговора</li>
+                <li style="margin-top: 20px;"><strong>СТРОГИЙ ВЫГОВОР</strong><br>— 5 рапортов о проделанной работе<br>— Ходатайство на снятие выговора</li>
+            </div>
+            <hr>
+            <p class="card-sub">Дополнительно: лицо, выдавшее дисциплинарное взыскание, может назначить любую другую отработку выговора в рамках разумного.</p>
+        </div>
+    </div>
+
+    <!-- СТРАНИЦА 3: ВООРУЖЕНИЕ -->
+    <div id="arsenal" class="page">
+        <div class="card">
+            <div class="card-title">Вооружение ЦСО СБУ "Альфа"</div>
+            <div class="card-sub">Общая экипировка: нож, Baretta 92FS, проверка на оружие, комплект гранат (Заря-3, РДГ-2, РГО, газовая)</div>
+            <div class="list">
+                <li><strong>КОМАНДИР</strong> — АС "Вал", M40A1, Флаер, бронежилет ~80 ед.</li>
+                <li><strong>ИНЖЕНЕР</strong> — KRISS VECTOR, AT-4 + C4, ремкомплект, пополнение брони, бронежилет ~60 ед.</li>
+                <li><strong>САНИТАР</strong> — АС "Вал", M3 Super 90, аптечка, бронежилет ~90 ед.</li>
+                <li><strong>ОПЕРАТИВНИК</strong> — АС "Вал", M40A1, бронежилет ~90 ед.</li>
+            </div>
+        </div>
+    </div>
+
+    <!-- СТРАНИЦА 4: ИЕРАРХИЯ (по уточненной схеме) -->
+    <div id="hierarchy" class="page">
+        <div class="card">
+            <div class="card-title">Иерархия командования ЦСО СБУ "Альфа"</div>
+            <div class="hierarchy-node">
+                <strong>КОМАНДИР ЦСО СБУ "А"</strong>
+            </div>
+            <div class="hierarchy-row">
+                <div class="hierarchy-card"><strong>ЗК ЦСО СБУ "А"</strong><br>(Заместитель командира)</div>
+                <div class="hierarchy-card"><strong>ЗК ЦСО СБУ "А"</strong><br>(Заместитель командира)</div>
+            </div>
+            <div class="hierarchy-row">
+                <div class="hierarchy-card"><strong>ИНСТ ЦСО СБУ "А"</strong><br>(Инструктор)</div>
+                <div class="hierarchy-card"><strong>ИНСТ ЦСО СБУ "А"</strong><br>(Инструктор)</div>
+            </div>
+            <div class="hierarchy-node" style="margin-top: 12px;">
+                <strong>ЛС ЦСО СБУ "А"</strong><br>(Личный состав)
+            </div>
+            <div class="badge" style="margin-top: 20px;">Структура утверждена согласно штатному расписанию подразделения</div>
+        </div>
+    </div>
+
+    <!-- СТРАНИЦА 5: ДРЕСС-КОД (полная таблица) -->
+    <div id="dresscode" class="page">
+        <div class="card">
+            <div class="card-title">Дресс-код личного состава ЦСО "Альфа"</div>
+            <div class="card-sub">Единые требования к форменному обмундированию для различных категорий</div>
+
+            <div class="section-subtitle">Боевая форма (КМД состав)</div>
+            <table class="dress-table">
+                <tr><th>Элемент</th><th>Значение</th></tr>
+                <tr><td>Модель</td><td>5</td></tr>
+                <tr><td>Скин</td><td>любой</td></tr>
+                <tr><td>Тактический ремень</td><td>3</td></tr>
+                <tr><td>Перчатки</td><td>0</td></tr>
+                <tr><td>Патч на шлем</td><td>2</td></tr>
+                <tr><td>Штаны</td><td>0</td></tr>
+                <tr><td>Батарея на шлем</td><td>2</td></tr>
+                <tr><td>Бронежилет</td><td>5</td></tr>
+                <tr><td>Очки солнцезащитные</td><td>0</td></tr>
+                <tr><td>Патч правая рука</td><td>2</td></tr>
+                <tr><td>Гарнитура</td><td>3</td></tr>
+                <tr><td>Повязка левая</td><td>2</td></tr>
+                <tr><td>Головной убор</td><td>2</td></tr>
+                <tr><td>Очки тактические</td><td>2</td></tr>
+                <tr><td>Куртка</td><td>1</td></tr>
+                <tr><td>Рюкзак</td><td>0</td></tr>
+                <tr><td>Подсумок</td><td>1</td></tr>
+                <tr><td>Крепление ПНВ</td><td>1</td></tr>
+            </table>
+
+            <div class="section-subtitle">Повседневная форма (КМД состав)</div>
+            <table class="dress-table">
+                <tr><th>Элемент</th><th>Значение</th></tr>
+                <tr><td>Модель</td><td>5</td></tr>
+                <tr><td>Скин</td><td>любой</td></tr>
+                <tr><td>Тактический ремень</td><td>3</td></tr>
+                <tr><td>Перчатки</td><td>0</td></tr>
+                <tr><td>Патч на шлем</td><td>2</td></tr>
+                <tr><td>Штаны</td><td>0</td></tr>
+                <tr><td>Батарея на шлем</td><td>2</td></tr>
+                <tr><td>Бронежилет</td><td>2</td></tr>
+                <tr><td>Очки солнцезащитные</td><td>0</td></tr>
+                <tr><td>Патч правая рука</td><td>2</td></tr>
+                <tr><td>Гарнитура</td><td>3</td></tr>
+                <tr><td>Повязка левая</td><td>2</td></tr>
+                <tr><td>Головной убор</td><td>1</td></tr>
+                <tr><td>Очки тактические</td><td>2</td></tr>
+                <tr><td>Куртка</td><td>1</td></tr>
+                <tr><td>Рюкзак</td><td>0</td></tr>
+                <tr><td>Подсумок</td><td>0</td></tr>
+                <tr><td>Крепление ПНВ</td><td>1</td></tr>
+            </table>
+
+            <div class="section-subtitle">Боевая форма (основной состав)</div>
+            <table class="dress-table">
+                <tr><th>Элемент</th><th>Значение</th></tr>
+                <tr><td>Модель</td><td>5</td></tr>
+                <tr><td>Скин</td><td>любой</td></tr>
+                <tr><td>Тактический ремень</td><td>1</td></tr>
+                <tr><td>Перчатки</td><td>0</td></tr>
+                <tr><td>Патч на шлем</td><td>2</td></tr>
+                <tr><td>Штаны</td><td>0</td></tr>
+                <tr><td>Батарея на шлем</td><td>2</td></tr>
+                <tr><td>Бронежилет</td><td>5</td></tr>
+                <tr><td>Очки солнцезащитные</td><td>0</td></tr>
+                <tr><td>Патч правая рука</td><td>2</td></tr>
+                <tr><td>Гарнитура</td><td>3</td></tr>
+                <tr><td>Повязка левая</td><td>2</td></tr>
+                <tr><td>Головной убор</td><td>1</td></tr>
+                <tr><td>Очки тактические</td><td>2</td></tr>
+                <tr><td>Куртка</td><td>1</td></tr>
+                <tr><td>Рюкзак</td><td>0</td></tr>
+                <tr><td>Подсумок</td><td>1</td></tr>
+                <tr><td>Крепление ПНВ</td><td>1</td></tr>
+            </table>
+
+            <div class="section-subtitle">Повседневная форма (основной состав)</div>
+            <table class="dress-table">
+                <tr><th>Элемент</th><th>Значение</th></tr>
+                <tr><td>Модель</td><td>5</td></tr>
+                <tr><td>Скин</td><td>любой</td></tr>
+                <tr><td>Тактический ремень</td><td>1</td></tr>
+                <tr><td>Перчатки</td><td>0</td></tr>
+                <tr><td>Патч на шлем</td><td>2</td></tr>
+                <tr><td>Штаны</td><td>0</td></tr>
+                <tr><td>Батарея на шлем</td><td>2</td></tr>
+                <tr><td>Бронежилет</td><td>2</td></tr>
+                <tr><td>Очки солнцезащитные</td><td>0</td></tr>
+                <tr><td>Патч правая рука</td><td>2</td></tr>
+                <tr><td>Гарнитура</td><td>2</td></tr>
+                <tr><td>Повязка левая</td><td>2</td></tr>
+                <tr><td>Головной убор</td><td>0</td></tr>
+                <tr><td>Очки тактические</td><td>2</td></tr>
+                <tr><td>Куртка</td><td>0</td></tr>
+                <tr><td>Рюкзак</td><td>0 (для медиков — 3, для инженера — 2)</td></tr>
+                <tr><td>Подсумок</td><td>0</td></tr>
+                <tr><td>Крепление ПНВ</td><td>1</td></tr>
+            </table>
+
+            <div class="section-subtitle">Парадная форма</div>
+            <table class="dress-table">
+                <tr><th>Элемент</th><th>Значение</th></tr>
+                <tr><td>Модель</td><td>1</td></tr>
+                <tr><td>Скин</td><td>0</td></tr>
+                <tr><td>Перчатки</td><td>0</td></tr>
+                <tr><td>Бронежилет</td><td>5</td></tr>
+                <tr><td>Повязка</td><td>0</td></tr>
+                <tr><td>Очки</td><td>1</td></tr>
+                <tr><td>Рюкзак</td><td>3</td></tr>
+                <tr><td>Погоны</td><td>ранг в соответствии со званием</td></tr>
+                <tr><td>Патч левый</td><td>0</td></tr>
+                <tr><td>Патч (основной)</td><td>0</td></tr>
+                <tr><td>Патч правый</td><td>0</td></tr>
+                <tr><td>Штаны</td><td>1</td></tr>
+                <tr><td>Маска</td><td>1</td></tr>
+                <tr><td>Головной убор</td><td>4</td></tr>
+                <tr><td>Тактический ремень</td><td>0</td></tr>
+            </table>
+            <div class="badge" style="margin-top: 16px;">Форма обязательна для соблюдения всеми категориями личного состава</div>
+        </div>
+    </div>
+
+    <!-- СТРАНИЦА 6: ДОКУМЕНТЫ + ГЕНЕРАТОР БИНДОВ -->
+    <div id="docs" class="page">
+        <div class="card">
+            <div class="card-title">Генератор биндов на документы</div>
+            <div class="card-sub">Заполните поля — получите готовые команды для /me показал В/Б и служебное удостоверение</div>
+            
+            <div class="form-group">
+                <label>ФИО (полностью)</label>
+                <input type="text" id="fio" placeholder="Шевченко А.М.">
+            </div>
+            <div class="form-group">
+                <label>Звание</label>
+                <input type="text" id="rank" placeholder="МЛЕЙТ">
+            </div>
+            <div class="form-group">
+                <label>Должность</label>
+                <input type="text" id="position" placeholder="ИНСТ">
+            </div>
+            <div class="form-group">
+                <label>Номер В/Б (для первого бинда)</label>
+                <input type="text" id="idNumber" placeholder="A-1245">
+            </div>
+            <div class="form-group">
+                <label>Знаки отличия / медали (через запятую)</label>
+                <input type="text" id="medals" placeholder="-">
+            </div>
+            <button class="btn" id="generateBindsBtn">Сгенерировать бинды</button>
+
+            <div class="generated-binds" id="generatedBindsArea">
+                <div class="bind-card">
+                    <div class="flex-between">
+                        <span class="bind-code">bind key "say /me показал В/Б: [Номер][ФИО][Звание][ЦСО СБУ А][Должность][Знаки отличия]"</span>
+                        <button class="copy-btn" data-copy="bind1">Копировать</button>
+                    </div>
+                </div>
+                <div class="bind-card">
+                    <div class="flex-between">
+                        <span class="bind-code">bind key "say /me показал служ. уд-е: [ФИО][Звание][ЦСО СБУ А][Должность]"</span>
+                        <button class="copy-btn" data-copy="bind2">Копировать</button>
+                    </div>
+                </div>
+                <div class="bind-card">
+                    <div class="flex-between">
+                        <span class="bind-code">bind key "say /me Показал служ. уд-е: ЦСО СБУ А в закрытом виде"</span>
+                        <button class="copy-btn" data-copy="bind3">Копировать</button>
+                    </div>
+                </div>
+                <p style="font-size: 0.75rem; margin-top: 12px;">Внимание: замените "key" на нужную клавишу (например, F1, KP_INS).</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- СТРАНИЦА 7: ПОЛЕЗНЫЕ БИНДЫ -->
+    <div id="useful" class="page">
+        <div class="card">
+            <div class="card-title">Полезные бинды (служебные действия)</div>
+            <div class="bind-card"><span class="bind-code">bind key "say /me забрал оружие, яды, средства связи и т.д"</span></div>
+            <div class="bind-card"><span class="bind-code">bind key "say /me поставил роспись за вооружение в журнале КХО."</span></div>
+            <div class="bind-card"><span class="bind-code">bind key "say /y  Працює СБУ, морду в підлогу, інакше ти помреш!"</span></div>
+            <div class="bind-card"><span class="bind-code">bind key "say /me Выбил оружие и скрутил человека напротив ; use weapon_cuff_rope"</span></div>
+            <p class="card-sub" style="margin-top: 16px;">Рекомендуемые клавиши: F4, F5, F6, Insert</p>
+        </div>
+    </div>
+
+    <!-- СТРАНИЦА 8: БИНДЫ НА ОРУЖИЕ -->
+    <div id="weaponbinds" class="page">
+        <div class="card">
+            <div class="card-title">Бинды на оружие (быстрая смена)</div>
+            <div class="bind-card"><span class="bind-code">bind key "use cw_val"</span> — АС «Вал»</div>
+            <div class="bind-card"><span class="bind-code">bind key "use cw_m3super90"</span> — M3 Super 90</div>
+            <div class="bind-card"><span class="bind-code">bind key "use mst_ifak"</span> — Аптечка IFAK</div>
+            <div class="bind-card"><span class="bind-code">bind key "use cw_vss"</span> — ВСС «Винторез»</div>
+            <hr>
+            <p class="card-sub">Пример: <span class="bind-code">bind F2 "use cw_val"</span> — моментальная экипировка.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>ⓘ Данный документ был создан для сервера MST | Операция на Украине
+Настоящий материал не является официальным документом.</p>
+    </footer>
+</div>
+
+<script>
+    // Переключение страниц
+    const pages = document.querySelectorAll('.page');
+    const tabBtns = document.querySelectorAll('.tab-btn');
+
+    function switchPage(pageId) {
+        pages.forEach(page => {
+            page.classList.remove('active-page');
+            if (page.id === pageId) {
+                page.classList.add('active-page');
+            }
+        });
+        tabBtns.forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.getAttribute('data-page') === pageId) {
+                btn.classList.add('active');
+            }
+        });
+    }
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const pageId = btn.getAttribute('data-page');
+            switchPage(pageId);
+        });
+    });
+
+    // Генерация биндов документов
+    const fioInput = document.getElementById('fio');
+    const rankInput = document.getElementById('rank');
+    const positionInput = document.getElementById('position');
+    const idNumberInput = document.getElementById('idNumber');
+    const medalsInput = document.getElementById('medals');
+    const generateBtn = document.getElementById('generateBindsBtn');
+
+    const bind1Span = document.querySelector('#generatedBindsArea .bind-card:first-child .bind-code');
+    const bind2Span = document.querySelector('#generatedBindsArea .bind-card:nth-child(2) .bind-code');
+    const bind3Span = document.querySelector('#generatedBindsArea .bind-card:nth-child(3) .bind-code');
+
+    function updateGeneratedBinds() {
+        let fio = fioInput.value.trim();
+        let rank = rankInput.value.trim();
+        let position = positionInput.value.trim();
+        let idNumber = idNumberInput.value.trim();
+        let medals = medalsInput.value.trim();
+
+        if (fio === '') fio = '[ФИО]';
+        if (rank === '') rank = '[Звание]';
+        if (position === '') position = '[Должность]';
+        if (idNumber === '') idNumber = '[Номер]';
+        if (medals === '') medals = '[Знаки отличия]';
+
+        const bind1Text = `bind key "say /me показал В/Б: ${idNumber} ${fio} ${rank} [ЦСО СБУ А] ${position} [${medals}]"`;
+        const bind2Text = `bind key "say /me показал служ. уд-е: ${fio} ${rank} [ЦСО СБУ А] ${position}"`;
+        const bind3Text = `bind key "say /me Показал служ. уд-е: ЦСО СБУ А в закрытом виде"`;
+
+        if (bind1Span) bind1Span.innerText = bind1Text;
+        if (bind2Span) bind2Span.innerText = bind2Text;
+        if (bind3Span) bind3Span.innerText = bind3Text;
+    }
+
+    generateBtn.addEventListener('click', updateGeneratedBinds);
+    [fioInput, rankInput, positionInput, idNumberInput, medalsInput].forEach(inp => {
+        inp.addEventListener('input', updateGeneratedBinds);
+    });
+    updateGeneratedBinds();
+
+    function copyToClipboard(text, btnElement) {
+        navigator.clipboard.writeText(text).then(() => {
+            const originalText = btnElement.innerText;
+            btnElement.innerText = 'Скопировано';
+            setTimeout(() => {
+                btnElement.innerText = originalText;
+            }, 1500);
+        }).catch(() => alert('Ошибка копирования'));
+    }
+
+    function bindCopyEvents() {
+        const copyBtns = document.querySelectorAll('.copy-btn');
+        copyBtns.forEach(btn => {
+            btn.removeEventListener('click', copyHandler);
+            btn.addEventListener('click', copyHandler);
+        });
+    }
+
+    function copyHandler(e) {
+        const btn = e.currentTarget;
+        const parent = btn.closest('.bind-card');
+        const codeSpan = parent.querySelector('.bind-code');
+        if (codeSpan) {
+            copyToClipboard(codeSpan.innerText, btn);
+        }
+    }
+
+    bindCopyEvents();
+    const observer = new MutationObserver(() => bindCopyEvents());
+    observer.observe(document.getElementById('generatedBindsArea'), { childList: true, subtree: true });
+</script>
+</body>
+</html>
