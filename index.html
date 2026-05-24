@@ -3,21 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="description" content="СБУ — свод служебных регламентов. ЦСО «Альфа», ГСУ, 8-е территориальное управление.">
     <title>СБУ | Свод служебных регламентов</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
             line-height: 1.5;
-            transition: background 0.2s, color 0.2s;
+            transition: background-color 0.25s ease, color 0.25s ease;
+            min-height: 100vh;
         }
 
-        /* ТЕМЫ (цвета подразделений) */
+        /* ТЕМЫ */
         body.theme-cso {
             --bg-dark: #0B0D10;
             --surface: #13161C;
@@ -46,7 +44,7 @@
             background: #0A0F1A;
             color: #E8EDF9;
         }
-        body.theme-8 {
+        body.theme-ter8 {
             --bg-dark: #0E1012;
             --surface: #1A1D21;
             --surface-light: #24282E;
@@ -61,12 +59,9 @@
             color: #E8ECEF;
         }
 
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
 
+        /* HEADER */
         .global-header {
             display: flex;
             justify-content: space-between;
@@ -77,7 +72,7 @@
             border-bottom: 1px solid var(--border);
             margin-bottom: 28px;
             background: rgba(0,0,0,0.2);
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(8px);
             position: sticky;
             top: 0;
             z-index: 20;
@@ -91,10 +86,9 @@
             background-clip: text;
             color: transparent;
         }
-        .logo-area p {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-        }
+        .logo-area p { font-size: 0.75rem; color: var(--text-secondary); margin-top: 4px; }
+
+        /* UNIT SELECTOR */
         .unit-selector {
             background: var(--surface-light);
             border-radius: 48px;
@@ -125,18 +119,15 @@
             color: var(--text-primary);
         }
 
-        .unit-container {
-            display: none;
-            animation: fade 0.2s ease;
-        }
-        .unit-container.active-unit {
-            display: block;
-        }
-        @keyframes fade {
-            from { opacity: 0; transform: translateY(6px);}
-            to { opacity: 1; transform: translateY(0);}
+        /* UNIT CONTAINER */
+        .unit-container { display: none; animation: tabFade 0.22s ease-out; }
+        .unit-container.active-unit { display: block; }
+        @keyframes tabFade {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
+        /* TAB BAR */
         .tab-bar {
             display: flex;
             flex-wrap: wrap;
@@ -157,21 +148,14 @@
             transition: 0.2s;
             font-family: inherit;
         }
-        .tab-btn:hover {
-            background: rgba(255,255,255,0.05);
-            color: var(--text-primary);
-        }
-        .tab-btn.active {
-            background: var(--accent);
-            color: #0B0D10;
-        }
-        .tab-content {
-            display: none;
-        }
-        .tab-content.active-content {
-            display: block;
-        }
+        .tab-btn:hover { background: rgba(255,255,255,0.05); color: var(--text-primary); }
+        .tab-btn.active { background: var(--accent); color: #0B0D10; }
 
+        /* TAB CONTENT */
+        .tab-content { display: none; }
+        .tab-content.active-content { display: block; animation: tabFade 0.22s ease-out; }
+
+        /* CARD */
         .card {
             background: var(--surface-glass);
             backdrop-filter: blur(8px);
@@ -188,14 +172,10 @@
             padding-left: 16px;
             color: var(--text-primary);
         }
-        .card-sub {
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-        }
-        .list {
-            list-style: none;
-        }
+        .card-sub { color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.9rem; }
+
+        /* LIST */
+        .list { list-style: none; }
         .list li {
             margin-bottom: 0.5rem;
             padding-left: 1.2rem;
@@ -207,31 +187,53 @@
             position: absolute;
             left: 0;
         }
+
+        /* BADGE */
         .badge {
-            background: rgba(122, 127, 138, 0.2);
+            background: rgba(122, 127, 138, 0.15);
             border: 1px solid var(--accent);
             padding: 4px 12px;
             border-radius: 40px;
             font-size: 0.7rem;
             display: inline-block;
+            margin-top: 12px;
         }
+
+        /* BIND CARD */
         .bind-card {
-            background: rgba(0,0,0,0.3);
+            background: rgba(0,0,0,0.35);
             border-radius: 16px;
             padding: 12px 16px;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.8rem;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 0.82rem;
             border-left: 3px solid var(--accent);
-            margin: 12px 0;
+            margin: 10px 0;
             word-break: break-all;
         }
-        .bind-code {
-            color: var(--accent);
-            font-weight: 500;
+        .bind-code { color: var(--accent); font-weight: 500; }
+        .bind-card .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            flex-wrap: wrap;
         }
-        .form-group {
-            margin-bottom: 1rem;
+        .copy-btn {
+            background: var(--surface-light);
+            border: none;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            color: var(--text-primary);
+            transition: 0.2s;
         }
+        .copy-btn:hover { opacity: 0.8; }
+
+        /* FORM */
+        .form-group { margin-bottom: 1rem; }
+        .form-row { display: grid; grid-template-columns: 1fr; gap: 0; }
+        @media (min-width: 640px) { .form-row { grid-template-columns: 1fr 1fr; gap: 16px; } }
         label {
             display: block;
             margin-bottom: 6px;
@@ -246,11 +248,12 @@
             padding: 10px 14px;
             color: var(--text-primary);
             font-family: inherit;
+            font-size: 0.9rem;
         }
-        input:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
+        input:focus { outline: none; border-color: var(--accent); }
+        input::placeholder { color: var(--text-secondary); opacity: 0.7; }
+
+        /* BUTTON */
         .btn {
             background: rgba(212, 175, 55, 0.15);
             border: 1px solid var(--accent);
@@ -260,11 +263,11 @@
             color: var(--accent);
             cursor: pointer;
             transition: 0.2s;
+            font-family: inherit;
         }
-        .btn:hover {
-            background: var(--accent);
-            color: #0B0D10;
-        }
+        .btn:hover { background: var(--accent); color: #0B0D10; }
+
+        /* FLEX */
         .flex-between {
             display: flex;
             justify-content: space-between;
@@ -272,15 +275,8 @@
             flex-wrap: wrap;
             gap: 8px;
         }
-        .copy-btn {
-            background: var(--surface-light);
-            border: none;
-            padding: 4px 12px;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            cursor: pointer;
-            color: var(--text-primary);
-        }
+
+        /* SUBTITLE */
         .section-subtitle {
             font-size: 1.1rem;
             font-weight: 600;
@@ -288,31 +284,41 @@
             border-left: 2px solid var(--accent);
             padding-left: 10px;
         }
-        .dress-table {
+
+        /* DRESS TABLE */
+        .dress-row {
             width: 100%;
-            border-collapse: collapse;
-            margin: 0.5rem 0;
-        }
-        .dress-table th, .dress-table td {
             border: 1px solid var(--border);
-            padding: 8px 10px;
-            text-align: left;
+            border-radius: 16px;
+            overflow: hidden;
+            margin: 8px 0;
+        }
+        .dress-row-content {
+            background: var(--surface-light);
+            padding: 10px 14px;
             font-size: 0.85rem;
         }
-        .dress-table th {
-            background: var(--surface-light);
-        }
+
+        /* LINKS */
         .links-list a {
             color: var(--accent);
             text-decoration: none;
         }
+        .links-list a:hover { text-decoration: underline; }
+        .links-list li { margin-bottom: 12px; padding-left: 0; }
+        .links-list li::before { display: none; }
+
+        /* FOOTER */
         footer {
             margin-top: 48px;
             padding: 20px 0;
             border-top: 1px solid var(--border);
             text-align: center;
             font-size: 0.7rem;
+            color: var(--text-secondary);
         }
+
+        /* MANUAL IMG */
         .manual-img {
             background: rgba(0,0,0,0.2);
             border-radius: 20px;
@@ -321,16 +327,28 @@
             font-style: italic;
             text-align: center;
             border: 1px dashed var(--border);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
         }
+
+        /* RESPONSIVE */
         @media (max-width: 700px) {
             .container { padding: 0 16px; }
             .global-header { flex-direction: column; align-items: stretch; }
             .unit-selector { align-self: flex-start; }
+            .card { padding: 1.2rem; }
         }
+
+        /* SCROLLBAR */
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: var(--surface); }
+        ::-webkit-scrollbar-thumb { background: var(--surface-light); border-radius: 6px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-dim); }
     </style>
 </head>
 <body class="theme-cso">
 <div class="container">
+    <!-- HEADER -->
     <div class="global-header">
         <div class="logo-area">
             <h1 id="mainTitle">Центр специальных операций "Альфа"</h1>
@@ -355,14 +373,132 @@
             <button class="tab-btn" data-tab="cso-useful">Полезные бинды</button>
             <button class="tab-btn" data-tab="cso-weapon">Бинды на оружие</button>
         </div>
-        <div id="cso-ranks" class="tab-content active-content"><div class="card"><div class="card-title">Система повышения званий</div><div class="list"><li><strong>МЛЕЙТ → ЛЕЙТЕНАНТ</strong><br>— Прохождение курсантской школы<br>— Написание одного рапорта</li><li><strong>ЛЕЙТЕНАНТ → СТАРШИЙ ЛЕЙТЕНАНТ</strong><br>— 8 рапортов о проделанной работе<br>— Положительная характеристика от командирского состава</li><li><strong>СТАРШИЙ ЛЕЙТЕНАНТ → КАПИТАН</strong><br>— 13 рапортов о проделанной работе<br>— Положительная характеристика<br>— Отличиться положительными качествами в составе</li></div><div class="badge">Все рапорты фиксируются по установленной форме</div></div></div>
-        <div id="cso-penalties" class="tab-content"><div class="card"><div class="card-title">Снятие дисциплинарных взысканий</div><div class="list"><li><strong>ВЫГОВОР (обычный)</strong><br>— 3 рапорта о проделанной работе<br>— Ходатайство на снятие выговора</li><li><strong>СТРОГИЙ ВЫГОВОР</strong><br>— 5 рапортов о проделанной работе<br>— Ходатайство на снятие выговора</li></div><p class="card-sub">Лицо, выдавшее взыскание, может назначить любую другую отработку в рамках разумного.</p></div></div>
-        <div id="cso-arsenal" class="tab-content"><div class="card"><div class="card-title">Вооружение ЦСО СБУ "Альфа"</div><div class="card-sub">Общая экипировка: нож, Baretta 92FS, проверка на оружие, комплект гранат (Заря-3, РДГ-2, РГО, газовая)</div><div class="list"><li><strong>КОМАНДИР</strong> — АС "Вал", M40A1, Флаер, бронежилет ~80 ед.</li><li><strong>ИНЖЕНЕР</strong> — KRISS VECTOR, AT-4 + C4, ремкомплект, пополнение брони, бронежилет ~60 ед.</li><li><strong>САНИТАР</strong> — АС "Вал", M3 Super 90, аптечка, бронежилет ~90 ед.</li><li><strong>ОПЕРАТИВНИК</strong> — АС "Вал", M40A1, бронежилет ~90 ед.</li></div></div></div>
-        <div id="cso-hierarchy" class="tab-content"><div class="card"><div class="card-title">Иерархия командования ЦСО СБУ "Альфа"</div><div class="list"><li><strong>КОМАНДИР ЦСО СБУ "А"</strong></li><li><strong>ЗК ЦСО СБУ "А"</strong> (Заместитель командира)</li><li><strong>ЗКпВПР ЦСО СБУ "А"</strong> (Заместитель по воспитательной работе)</li><li><strong>ИНСТпБП ЦСО СБУ "А"</strong> (Инструктор по боевой подготовке)</li><li><strong>ИНСТпВПР ЦСО СБУ "А"</strong> (Инструктор по воспитательной работе)</li><li><strong>ЛС ЦСО СБУ "А"</strong> (Личный состав)</li></div><div class="badge">Структура утверждена штатным расписанием</div></div></div>
-        <div id="cso-dresscode" class="tab-content"><div class="card"><div class="card-title">Дресс-код личного состава ЦСО "Альфа"</div><div class="section-subtitle">Боевая форма (КМД состав)</div><table class="dress-table"><tr><th>Элемент</th><th>Значение</th><tr><tr><td>Модель 5, скин любой, тактический ремень 3, патч на шлем 2, батарея на шлем 2, бронежилет 5, патч правая рука 2, гарнитура 3, повязка левая 2, головной убор 2, очки тактические 2, куртка 1, подсумок 1, крепление ПНВ 1</td></tr></table><div class="section-subtitle">Повседневная форма (КМД состав)</div><table class="dress-table"><tr><td>Модель 5, скин любой, ремень 3, патч шлем 2, батарея 2, броня 2, патч рука 2, гарнитура 3, повязка 2, головной убор 1, очки такт 2, куртка 1, подсумок 0, ПНВ 1</td></tr></table><div class="section-subtitle">Боевая (основной состав)</div><table class="dress-table"><tr><td>Модель 5, ремень 1, патч шлем 2, батарея 2, броня 5, патч рука 2, гарнитура 3, повязка 2, головной убор 1, очки 2, куртка 1, подсумок 1, ПНВ 1</td></tr></table><div class="section-subtitle">Повседневная (основной состав)</div><table class="dress-table"><tr><td>Модель 5, ремень 1, патч шлем 2, батарея 2, броня 2, патч рука 2, гарнитура 2, повязка 2, головной убор 0, очки 2, куртка 0, рюкзак: медикам 3, инженеру 2</td></tr></table><div class="section-subtitle">Парадная форма</div><table class="dress-table"><tr><td>Модель 1, скин 0, перчатки 0, броня 5, очки 1, рюкзак 3, погоны по званию, штаны 1, маска 1, головной убор 4</td></tr></table><div class="badge">Форма обязательна для всех категорий</div></div></div>
-        <div id="cso-docs" class="tab-content"><div class="card"><div class="card-title">Генератор биндов (ЦСО)</div><div class="form-group"><label>ФИО</label><input type="text" id="csoFio" placeholder="Шевченко А.М."></div><div class="form-group"><label>Звание</label><input type="text" id="csoRank" placeholder="МЛЕЙТ"></div><div class="form-group"><label>Должность</label><input type="text" id="csoPos" placeholder="-"></div><div class="form-group"><label>Номер В/Б</label><input type="text" id="csoId" placeholder="A-1245"></div><div class="form-group"><label>Знаки отличия</label><input type="text" id="csoMedals" placeholder="-"></div><button class="btn" id="genCsoBinds">Сгенерировать</button><div id="csoBindsArea"><div class="bind-card"><div class="flex-between"><span class="bind-code">bind key "say /me показал В/Б: ..."</span><button class="copy-btn">Копировать</button></div></div><div class="bind-card"><div class="flex-between"><span class="bind-code">bind key "say /me показал служ. уд-е: ..."</span><button class="copy-btn">Копировать</button></div></div><div class="bind-card"><div class="flex-between"><span class="bind-code">bind key "say /me Показал служ. уд-е: ЦСО СБУ А в закрытом виде"</span><button class="copy-btn">Копировать</button></div></div></div></div></div>
-        <div id="cso-useful" class="tab-content"><div class="card"><div class="card-title">Полезные бинды</div><div class="bind-card">bind key "say /me забрал оружие, яды, средства связи и т.д"</div><div class="bind-card">bind key "say /me поставил роспись за вооружение в журнале КХО."</div><div class="bind-card">bind key "say /y  Працює СБУ, морду в підлогу, інакше ти помреш!"</div><div class="bind-card">bind key "say /me Выбил оружие и скрутил человека напротив ; use weapon_cuff_rope"</div></div></div>
-        <div id="cso-weapon" class="tab-content"><div class="card"><div class="card-title">Бинды на оружие</div><div class="bind-card">bind key "use cw_val" — АС «Вал»</div><div class="bind-card">bind key "use cw_m3super90" — M3 Super 90</div><div class="bind-card">bind key "use mst_ifak" — Аптечка IFAK</div><div class="bind-card">bind key "use cw_vss" — ВСС «Винторез»</div></div></div>
+
+        <div id="cso-ranks" class="tab-content active-content">
+            <div class="card">
+                <div class="card-title">Система повышения званий</div>
+                <ul class="list">
+                    <li><strong>МЛЕЙТ → ЛЕЙТЕНАНТ</strong><br>— Прохождение курсантской школы<br>— Написание одного рапорта</li>
+                    <li><strong>ЛЕЙТЕНАНТ → СТАРШИЙ ЛЕЙТЕНАНТ</strong><br>— 8 рапортов о проделанной работе<br>— Положительная характеристика от командирского состава</li>
+                    <li><strong>СТАРШИЙ ЛЕЙТЕНАНТ → КАПИТАН</strong><br>— 13 рапортов о проделанной работе<br>— Положительная характеристика<br>— Отличиться положительными качествами в составе</li>
+                </ul>
+                <div class="badge">Все рапорты фиксируются по установленной форме</div>
+            </div>
+        </div>
+
+        <div id="cso-penalties" class="tab-content">
+            <div class="card">
+                <div class="card-title">Снятие дисциплинарных взысканий</div>
+                <ul class="list">
+                    <li><strong>ВЫГОВОР (обычный)</strong><br>— 3 рапорта о проделанной работе<br>— Ходатайство на снятие выговора</li>
+                    <li><strong>СТРОГИЙ ВЫГОВОР</strong><br>— 5 рапортов о проделанной работе<br>— Ходатайство на снятие выговора</li>
+                </ul>
+                <p class="card-sub">Лицо, выдавшее взыскание, может назначить любую другую отработку в рамках разумного.</p>
+            </div>
+        </div>
+
+        <div id="cso-arsenal" class="tab-content">
+            <div class="card">
+                <div class="card-title">Вооружение ЦСО СБУ "Альфа"</div>
+                <div class="card-sub">Общая экипировка: нож, Baretta 92FS, проверка на оружие, комплект гранат (Заря-3, РДГ-2, РГО, газовая)</div>
+                <ul class="list">
+                    <li><strong>КОМАНДИР</strong> — АС "Вал", M40A1, Флаер, бронежилет ~80 ед.</li>
+                    <li><strong>ИНЖЕНЕР</strong> — KRISS VECTOR, AT-4 + C4, ремкомплект, пополнение брони, бронежилет ~60 ед.</li>
+                    <li><strong>САНИТАР</strong> — АС "Вал", M3 Super 90, аптечка, бронежилет ~90 ед.</li>
+                    <li><strong>ОПЕРАТИВНИК</strong> — АС "Вал", M40A1, бронежилет ~90 ед.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="cso-hierarchy" class="tab-content">
+            <div class="card">
+                <div class="card-title">Иерархия командования ЦСО СБУ "Альфа"</div>
+                <ul class="list">
+                    <li><strong>КОМАНДИР ЦСО СБУ "А"</strong></li>
+                    <li><strong>ЗК ЦСО СБУ "А"</strong> (Заместитель командира)</li>
+                    <li><strong>ЗКпВПР ЦСО СБУ "А"</strong> (Заместитель по воспитательной работе)</li>
+                    <li><strong>ИНСТпБП ЦСО СБУ "А"</strong> (Инструктор по боевой подготовке)</li>
+                    <li><strong>ИНСТпВПР ЦСО СБУ "А"</strong> (Инструктор по воспитательной работе)</li>
+                    <li><strong>ЛС ЦСО СБУ "А"</strong> (Личный состав)</li>
+                </ul>
+                <div class="badge">Структура утверждена штатным расписанием</div>
+            </div>
+        </div>
+
+        <div id="cso-dresscode" class="tab-content">
+            <div class="card">
+                <div class="card-title">Дресс-код личного состава ЦСО "Альфа"</div>
+
+                <div class="section-subtitle">Боевая форма (КМД состав)</div>
+                <div class="dress-row"><div class="dress-row-content">Модель 5, скин любой, тактический ремень 3, патч на шлем 2, батарея на шлем 2, бронежилет 5, патч правая рука 2, гарнитура 3, повязка левая 2, головной убор 2, очки тактические 2, куртка 1, подсумок 1, крепление ПНВ 1</div></div>
+
+                <div class="section-subtitle">Повседневная форма (КМД состав)</div>
+                <div class="dress-row"><div class="dress-row-content">Модель 5, скин любой, ремень 3, патч шлем 2, батарея 2, броня 2, патч рука 2, гарнитура 3, повязка 2, головной убор 1, очки такт 2, куртка 1, подсумок 0, ПНВ 1</div></div>
+
+                <div class="section-subtitle">Боевая (основной состав)</div>
+                <div class="dress-row"><div class="dress-row-content">Модель 5, ремень 1, патч шлем 2, батарея 2, броня 5, патч рука 2, гарнитура 3, повязка 2, головной убор 1, очки 2, куртка 1, подсумок 1, ПНВ 1</div></div>
+
+                <div class="section-subtitle">Повседневная (основной состав)</div>
+                <div class="dress-row"><div class="dress-row-content">Модель 5, ремень 1, патч шлем 2, батарея 2, броня 2, патч рука 2, гарнитура 2, повязка 2, головной убор 0, очки 2, куртка 0, рюкзак: медикам 3, инженеру 2</div></div>
+
+                <div class="section-subtitle">Парадная форма</div>
+                <div class="dress-row"><div class="dress-row-content">Модель 1, скин 0, перчатки 0, броня 5, очки 1, рюкзак 3, погоны по званию, штаны 1, маска 1, головной убор 4</div></div>
+
+                <div class="badge">Форма обязательна для всех категорий</div>
+            </div>
+        </div>
+
+        <div id="cso-docs" class="tab-content">
+            <div class="card">
+                <div class="card-title">Генератор биндов (ЦСО)</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>ФИО</label>
+                        <input type="text" id="csoFio" placeholder="Шевченко А.М.">
+                    </div>
+                    <div class="form-group">
+                        <label>Звание</label>
+                        <input type="text" id="csoRank" placeholder="МЛЕЙТ">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Должность</label>
+                        <input type="text" id="csoPos" placeholder="ЗК">
+                    </div>
+                    <div class="form-group">
+                        <label>Номер В/Б</label>
+                        <input type="text" id="csoId" placeholder="A-1245">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Знаки отличия</label>
+                    <input type="text" id="csoMedals" placeholder="-">
+                </div>
+                <button class="btn" id="genCsoBinds">Сгенерировать</button>
+                <div id="csoBindsArea" style="margin-top: 20px;"></div>
+            </div>
+        </div>
+
+        <div id="cso-useful" class="tab-content">
+            <div class="card">
+                <div class="card-title">Полезные бинды</div>
+                <div class="bind-card"><code class="bind-code">bind key "say /me забрал оружие, яды, средства связи и т.д"</code></div>
+                <div class="bind-card"><code class="bind-code">bind key "say /me поставил роспись за вооружение в журнале КХО."</code></div>
+                <div class="bind-card"><code class="bind-code">bind key "say /y  Працює СБУ, морду в підлогу, інакше ти помреш!"</code></div>
+                <div class="bind-card"><code class="bind-code">bind key "say /me Выбил оружие и скрутил человека напротив ; use weapon_cuff_rope"</code></div>
+            </div>
+        </div>
+
+        <div id="cso-weapon" class="tab-content">
+            <div class="card">
+                <div class="card-title">Бинды на оружие</div>
+                <div class="bind-card"><code class="bind-code">bind key "use cw_val"</code> — АС «Вал»</div>
+                <div class="bind-card"><code class="bind-code">bind key "use cw_m3super90"</code> — M3 Super 90</div>
+                <div class="bind-card"><code class="bind-code">bind key "use mst_ifak"</code> — Аптечка IFAK</div>
+                <div class="bind-card"><code class="bind-code">bind key "use cw_vss"</code> — ВСС «Винторез»</div>
+            </div>
+        </div>
     </div>
 
     <!-- ======================= ГСУ ======================= -->
@@ -373,13 +509,87 @@
             <button class="tab-btn" data-tab="gsu-useful">Полезные бинды и оружие</button>
             <button class="tab-btn" data-tab="gsu-links">Шаблоны документов</button>
         </div>
-        <div id="gsu-uniform" class="tab-content active-content"><div class="card"><div class="card-title">Форма одежды сотрудников ГСУ</div><div class="section-subtitle">Повседневная форма следователей</div><table class="dress-table"><tr><th>Элемент</th><th>Значение</th><tr><tr><td>Модель 5, скин 0-4, тактический ремень 0-5, патч на шлем 2, батарея на шлем 2, бронежилет 0-2, патч правая рука 2, гарнитура 3, повязка левая 2, головной убор 1, очки тактические 2, куртка 0-1, подсумок 1, крепление ПНВ 1</td></tr></table><div class="section-subtitle">Боевая форма следователей</div><table class="dress-table"><tr><tr>Модель 5, скин 0-4, ремень 0-5, патч шлем 0-2, батарея 0-2, броня 0-2, патч рука 0-2, гарнитура 0-3, повязка 2, головной убор 0, очки 0, куртка 0-1</td></tr></table><div class="section-subtitle">Форма для ОРМ</div><table class="dress-table"><tr><td>Модель 5, скин 0-4, ремень 1, патч шлем 0, батарея 1, броня 0-1, патч рука 0-2, гарнитура 1, повязка 2, головной убор 0, очки 2, куртка 0-1</td></tr></table><div class="badge">Сотрудники без профессии ЦСО — свободная форма</div></div></div>
-        <div id="gsu-docs" class="tab-content"><div class="card"><div class="card-title">Генератор биндов (ГСУ)</div><div class="form-group"><label>ФИО</label><input type="text" id="gsuFio" placeholder="Шевченко А.М."></div><div class="form-group"><label>Звание</label><input type="text" id="gsuRank" placeholder="Майор юстиции"></div><div class="form-group"><label>Должность</label><input type="text" id="gsuPos" placeholder="Следователь"></div><div class="form-group"><label>Номер военного билета</label><input type="text" id="gsuId" placeholder="АК-123456"></div><div class="form-group"><label>Знаки отличия</label><input type="text" id="gsuMedals" placeholder="За доблесть"></div><button class="btn" id="genGsuBinds">Сгенерировать</button><div id="gsuBindsArea"><div class="bind-card"><div class="flex-between"><span class="bind-code">bind key "say /me показал военный билет: ..."</span><button class="copy-btn">Копировать</button></div></div><div class="bind-card"><div class="flex-between"><span class="bind-code">bind key "say /me показал служ. уд-е: ..."</span><button class="copy-btn">Копировать</button></div></div><div class="bind-card"><div class="flex-between"><span class="bind-code">bind key "say /me Показал служ. уд-е: ГСУ СБУ в закрытом виде"</span><button class="copy-btn">Копировать</button></div></div></div></div></div>
-        <div id="gsu-useful" class="tab-content"><div class="card"><div class="card-title">Полезные бинды и оружие</div><div class="bind-card">bind key "say /me забрал оружие, яды, средства связи и т.д"</div><div class="bind-card">bind key "say /me поставил роспись за вооружение в журнале КХО."</div><div class="bind-card">bind key "say /y  Працює СБУ, морду в підлогу, інакше ти помреш!"</div><div class="bind-card">bind key "say /me Выбил оружие и скрутил человека напротив ; use weapon_cuff_rope"</div><div class="section-subtitle">Бинды на оружие</div><div class="bind-card">bind key "use cw_val" — АС «Вал»</div><div class="bind-card">bind key "use cw_m3super90" — M3 Super 90</div><div class="bind-card">bind key "use mst_ifak" — Аптечка IFAK</div><div class="bind-card">bind key "use cw_vss" — ВСС «Винторез»</div></div></div>
-        <div id="gsu-links" class="tab-content"><div class="card"><div class="card-title">Шаблоны процессуальных документов</div><div class="links-list"><p><a href="https://docs.google.com/document/d/1874zpprfJRHHEXOOvHqm5M-9k2qrjghBpzaJzalZv60/edit" target="_blank">Рапорт досудебного расследования</a></p><p><a href="https://docs.google.com/document/d/1na98OmmZ01gx4c6oRQWpT5UklAhnpkhlZDfn2WuWvls/edit" target="_blank">Запрос информации</a></p><p><a href="https://docs.google.com/document/d/1GlRFfj63QgjtURd4IvO1EU5t73eWK7MFgdILoGZOTgI/edit" target="_blank">ВУД (Ведение уголовного дела)</a></p><p><a href="https://docs.google.com/document/d/1OfR9n-SXziSFCyu5FfQdJq8VTTFV-ztjxGKa--Pcqkw/edit" target="_blank">Уведомление о ВУД</a></p></div><div class="badge">Доступ по служебной необходимости</div></div></div>
+
+        <div id="gsu-uniform" class="tab-content active-content">
+            <div class="card">
+                <div class="card-title">Форма одежды сотрудников ГСУ</div>
+
+                <div class="section-subtitle">Повседневная форма следователей</div>
+                <div class="dress-row"><div class="dress-row-content">Модель 5, скин 0-4, тактический ремень 0-5, патч на шлем 2, батарея на шлем 2, бронежилет 0-2, патч правая рука 2, гарнитура 3, повязка левая 2, головной убор 1, очки тактические 2, куртка 0-1, подсумок 1, крепление ПНВ 1</div></div>
+
+                <div class="section-subtitle">Боевая форма следователей</div>
+                <div class="dress-row"><div class="dress-row-content">Модель 5, скин 0-4, ремень 0-5, патч шлем 0-2, батарея 0-2, броня 0-2, патч рука 0-2, гарнитура 0-3, повязка 2, головной убор 0, очки 0, куртка 0-1</div></div>
+
+                <div class="section-subtitle">Форма для ОРМ</div>
+                <div class="dress-row"><div class="dress-row-content">Модель 5, скин 0-4, ремень 1, патч шлем 0, батарея 1, броня 0-1, патч рука 0-2, гарнитура 1, повязка 2, головной убор 0, очки 2, куртка 0-1</div></div>
+
+                <div class="badge">Сотрудники без профессии ЦСО — свободная форма</div>
+            </div>
+        </div>
+
+        <div id="gsu-docs" class="tab-content">
+            <div class="card">
+                <div class="card-title">Генератор биндов (ГСУ)</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>ФИО</label>
+                        <input type="text" id="gsuFio" placeholder="Шевченко А.М.">
+                    </div>
+                    <div class="form-group">
+                        <label>Звание</label>
+                        <input type="text" id="gsuRank" placeholder="МЛЕЙТ">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Должность</label>
+                        <input type="text" id="gsuPos" placeholder="ЗК">
+                    </div>
+                    <div class="form-group">
+                        <label>Номер военного билета</label>
+                        <input type="text" id="gsuId" placeholder="АК-123456">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Знаки отличия</label>
+                    <input type="text" id="gsuMedals" placeholder="-">
+                </div>
+                <button class="btn" id="genGsuBinds">Сгенерировать</button>
+                <div id="gsuBindsArea" style="margin-top: 20px;"></div>
+            </div>
+        </div>
+
+        <div id="gsu-useful" class="tab-content">
+            <div class="card">
+                <div class="card-title">Полезные бинды и оружие</div>
+                <div class="bind-card"><code class="bind-code">bind key "say /me забрал оружие, яды, средства связи и т.д"</code></div>
+                <div class="bind-card"><code class="bind-code">bind key "say /me поставил роспись за вооружение в журнале КХО."</code></div>
+                <div class="bind-card"><code class="bind-code">bind key "say /y  Працює СБУ, морду в підлогу, інакше ти помреш!"</code></div>
+                <div class="bind-card"><code class="bind-code">bind key "say /me Выбил оружие и скрутил человека напротив ; use weapon_cuff_rope"</code></div>
+
+                <div class="section-subtitle">Бинды на оружие</div>
+                <div class="bind-card"><code class="bind-code">bind key "use cw_val"</code> — АС «Вал»</div>
+                <div class="bind-card"><code class="bind-code">bind key "use cw_m3super90"</code> — M3 Super 90</div>
+                <div class="bind-card"><code class="bind-code">bind key "use mst_ifak"</code> — Аптечка IFAK</div>
+                <div class="bind-card"><code class="bind-code">bind key "use cw_vss"</code> — ВСС «Винторез»</div>
+            </div>
+        </div>
+
+        <div id="gsu-links" class="tab-content">
+            <div class="card">
+                <div class="card-title">Шаблоны процессуальных документов</div>
+                <ul class="links-list list">
+                    <li><a href="https://docs.google.com/document/d/1874zpprfJRHHEXOOvHqm5M-9k2qrjghBpzaJzalZv60/edit" target="_blank" rel="noopener noreferrer">Рапорт досудебного расследования</a></li>
+                    <li><a href="https://docs.google.com/document/d/1na98OmmZ01gx4c6oRQWpT5UklAhnpkhlZDfn2WuWvls/edit" target="_blank" rel="noopener noreferrer">Запрос информации</a></li>
+                    <li><a href="https://docs.google.com/document/d/1GlRFfj63QgjtURd4IvO1EU5t73eWK7MFgdILoGZOTgI/edit" target="_blank" rel="noopener noreferrer">ВУД (Ведение уголовного дела)</a></li>
+                    <li><a href="https://docs.google.com/document/d/1OfR9n-SXziSFCyu5FfQdJq8VTTFV-ztjxGKa--Pcqkw/edit" target="_blank" rel="noopener noreferrer">Уведомление о ВУД</a></li>
+                </ul>
+                <div class="badge">Доступ по служебной необходимости</div>
+            </div>
+        </div>
     </div>
 
-    <!-- ======================= 8-е территориальное управление (обновлено) ======================= -->
+    <!-- ======================= 8-е управление ======================= -->
     <div id="unit-ter8" class="unit-container">
         <div class="tab-bar">
             <button class="tab-btn active" data-tab="ter8-info">Общие сведения</button>
@@ -390,20 +600,209 @@
             <button class="tab-btn" data-tab="ter8-assault">Штурм и зачистка</button>
             <button class="tab-btn" data-tab="ter8-interrogation">Допрос военнопленных</button>
         </div>
-        <div id="ter8-info" class="tab-content active-content"><div class="card"><div class="card-title">8-е территориальное управление</div><div class="card-sub">Служба безопасности Украины (СБУ) создана в 1991 году. Государственный орган, отвечающий за защиту национальной безопасности, разведку и контрразведку.</div><div class="section-subtitle">Основные функции СБУ</div><div class="list"><li>Контрразведка – выявление и предотвращение деятельности иностранных спецслужб (шпионаж, диверсии).</li><li>Борьба с терроризмом – предотвращение терактов, поиск террористических групп и их нейтрализация.</li><li>Защита государственной тайны – контроль сохранности секретной информации.</li><li>Борьба с коррупцией и организованной преступностью.</li><li>Экономическая безопасность – предотвращение незаконных действий, наносящих вред экономике.</li><li>Оперативно-розыскная деятельность – сбор информации, проведение скрытых операций.</li></div><div class="badge">Официальный регламент</div></div></div>
-        <div id="ter8-docsbind" class="tab-content"><div class="card"><div class="card-title">Бинды и служебная документация</div><div class="form-group"><label>Фамилия И.О.</label><input type="text" id="ter8Fio" placeholder="Шевченко А.М."></div><div class="form-group"><label>Звание</label><input type="text" id="ter8Rank" placeholder="МЛЕЙТ"></div><div class="form-group"><label>Должность</label><input type="text" id="ter8Pos" placeholder="Оперуповноважений"></div><div class="form-group"><label>Номер жетона (6 цифр)</label><input type="text" id="ter8Token" placeholder="123456"></div><button class="btn" id="genTer8Binds">Сгенерировать бинды</button><div id="ter8BindsArea"><div class="bind-card"><div class="flex-between"><span class="bind-code">bind key "say /me показал жетон военнослужащего ..."</span><button class="copy-btn">Копировать</button></div></div><div class="bind-card"><div class="flex-between"><span class="bind-code">bind key "say /me показал служебное удостоверение: СБУ | ..."</span><button class="copy-btn">Копировать</button></div></div><div class="bind-card"><div class="flex-between"><span class="bind-code">bind key "say /me показал служеб. уд-ение: СБУ | ..."</span><button class="copy-btn">Копировать</button></div></div><div class="bind-card"><div class="flex-between"><span class="bind-code">bind key "say /me показал служебное удостоверение СБУ в закрытом виде"</span><button class="copy-btn">Копировать</button></div></div></div><hr><div class="section-subtitle">Бинды – росписи и боевые задачи</div><div class="bind-card">bind key "say /me поставил роспись за вооружение и боеприпасы в журнале"</div><div class="bind-card">bind key "say /me выбил оружие и скрутил человека напротив; use weapon_cuff_rope"</div><div class="bind-card">bind key "say /me забрал оружие, яды, средства связи и видео и т.д."</div><div class="bind-card">bind key "say /y Сдавайся, морду в пiдлогу, iнакше ти помреш!"</div><div class="bind-card">/ad [СБУ - ВЧ] Я, "Позывной" покидаю В/Ч в составе "N" человек. Техника: [указываем технику]</div><div class="bind-card">/ad [ППП-ВЧ] Докладывает: [Фамилия И.О или Позывной] Пост: [название]. Количество постовых - [число]. Код: D2.</div></div></div>
-        <div id="ter8-drill" class="tab-content"><div class="card"><div class="card-title">Учебная лекция: Основы строевой подготовки СБУ</div><div class="card-sub">Дисциплина «Строевая подготовка» для личного состава</div><p><strong>Цель занятия:</strong> сформировать у обучаемых навыки действий в строю, отработать выполнение строевых приёмов, развить чёткость и согласованность выполнения команд.</p><div class="section-subtitle">Понятие строя и его элементы</div><p>Строй — установленное размещение личного состава для совместных действий. Основные элементы: фронт, тыл, фланги (правый и левый), дистанция, интервал. Виды строя: развернутый строй, походный строй (колонны различного вида).</p><div class="section-subtitle">Строевая стойка</div><p>Строевая стойка принимается по команде «СМИРНО». Требования: пятки вместе, носки разведены; ноги выпрямлены; корпус прямой, слегка подан вперёд; плечи развернуты; руки опущены вдоль тела; голова держится прямо, взгляд направлен вперёд. <strong>Запрещается:</strong> разговаривать, двигаться без команды, отвлекаться.</p><div class="section-subtitle">Повороты на месте</div><p>Выполняются по командам: «Напра-ВО», «Нале-ВО», «Кру-ГОМ». Требования: выполнение на счёт, сохранение равновесия, одновременность действий.</p><div class="section-subtitle">Движение строем</div><p>Движение осуществляется шагом: строевым или походным. Основные требования: единый темп движения, соблюдение дистанции и интервала, синхронность. При движении корпус сохраняет прямое положение, руки двигаются свободно и согласованно.</p><div class="section-subtitle">Выполнение строевых команд</div><p>Команды подразделяются на предварительные и исполнительные. Требования: немедленное реагирование, точность, чёткость.</p><div class="section-subtitle">Перестроения</div><p>Перестроения выполняются по команде командира. Основные виды: из колонны в линию, из линии в колонну, изменение направления движения.</p><div class="section-subtitle">Требования безопасности и дисциплины</div><p>Строгое соблюдение команд, недопущение самовольных действий, поддержание установленного порядка.</p><div class="section-subtitle">Заключение</div><p>Строевая подготовка является основой воинской дисциплины и важным элементом подготовки личного состава. В результате обучения обучаемые должны: знать основные элементы строя, уметь выполнять строевые приёмы, действовать слаженно в составе подразделения.</p><p><strong>Контрольные вопросы:</strong> 1. Что такое строй и его элементы? 2. Как принимается строевая стойка? 3. Какие виды движения применяются в строю? 4. Как классифицируются команды?</p><div class="badge">Материал утвержден управлением строевой подготовки</div></div></div>
-        <div id="ter8-radio" class="tab-content"><div class="card"><div class="card-title">Правила радиообмена</div><div class="card-sub">Для точной координации действий бойцов и успешного выполнения боевой задачи.</div><p><strong>Настройка рации:</strong> берём в руки рацию с видом от 1-го лица, нажимаем на кнопку C и затем среднюю кнопку мыши (колёсико), после этого вводим необходимую частоту. Командир взвода ставит себе позывной на время боевых действий. При необходимости командир подаёт команду “Сдвиг” — переход на резервную частоту. Пример: «Шторм. сдвиг на резерв 1».</p><div class="section-subtitle">Правила радиообмена:</div><div class="list"><li>Информировать себя кратким и понятным позывным.</li><li>Продумать информацию, затем говорить её в радиообмен.</li><li>Говорить информацию просто и кратко.</li><li>Передавать меньше посторонней информации.</li><li>Заканчивать передачу словом «Приём».</li><li>Не перебивать передающих, не имея срочной информации.</li></div><div class="section-subtitle">Фазы разговора</div><p>1. Начало разговора: представиться самому и назвать того, к кому обращаетесь. Пример: «Топаз, это Шторм. Приём» → «Топаз Шторму. Приём» → «Шторм на связи. Приём».</p><p>2. Тело разговора: информация передаётся кратко и чётко. Пример: «Топаз Шторму. Занял высоту 2. Жду подкрепления. Приём.»</p><p>3. Окончание разговора – подтверждение.</p><p><strong>Общение между группами имеет приоритет перед общением между солдатами!</strong> Если боевую задачу выполняет несколько взводов, командиры групп отзываются только на свои позывные.</p><div class="section-subtitle">Нецензурная брань в радиообмене</div><p>Нецензурная ругань может использоваться для сокращения слов в передаче информации. Оскорбительные высказывания применяются в сторону противника. Пример: «Топаз. ёбни хуйню справа».</p><div class="badge">Эфир – это воздух боя. Берегите время.</div></div></div>
-        <div id="ter8-medical" class="tab-content"><div class="card"><div class="card-title">Медицинская памятка для сотрудников 8-го терр. управления</div><div class="section-subtitle">Разделение боевой обстановки</div><p><strong>Красная зона</strong> – эпицентр боя. Раненому не делают сложных перевязок, лишь бегло осматривают, при сильном кровотечении накладывают жгут и немедленно транспортируют в жёлтую зону. <strong>Жёлтая зона</strong> – укрытие, где производится вторичный осмотр, тщательная перевязка, ослабление жгутов. <strong>Зелёная зона</strong> – передача опытным медикам в полевом госпитале.</p><div class="section-subtitle">Средства первой помощи</div><p>Тактическая аптечка включает: полевую компрессионную повязку, декомпрессионную иглу, тактические ножницы, стерильные перчатки, бинты, лейкопластырь, жгуты, набор медикаментов.</p><div class="section-subtitle">Виды кровотечений и оказание ПМП</div><div class="list"><li><strong>Капиллярное</strong> – обработка антисептиком, пластырь.</li><li><strong>Венозное</strong> – обработать антисептиком, подложить одежду под жгут, наложить жгут выше раны на 5-7 см, записка с датой/временем.</li><li><strong>Артериальное</strong> – немедленный жгут (выше на 5-7 см) с запиской, максимально туго.</li><li><strong>Смешанное</strong> (отрыв конечности) – протезирование или жгут в крайнем случае.</li></div><div class="section-subtitle">Переломы</div><p>Симптомы: резкая боль, деформация, невозможность движений, отёк, при открытом – видна кость. <strong>Запрещено:</strong> вправлять кость, выпрямлять конечность, перемещать пострадавшего без нужды, заливать в рану спирт/йод.</p><p><strong>Лечение:</strong> при открытом – остановить кровь и обработать рану; при закрытом – обезболить холодом, обездвижить с помощью шины на два ближайших сустава. Шина накладывается поверх одежды, можно использовать подручные материалы (доски, палки).</p><div class="badge">Правило: не навреди, стабилизируй и эвакуируй.</div></div></div>
-        <div id="ter8-assault" class="tab-content"><div class="card"><div class="card-title">Тактика действий при штурме и зачистке помещений</div><div class="card-sub">Динамичная атака vs скрытное проникновение. Оптимальная группа – 4-5 человек.</div><p>Динамичная атака – стремительное проникновение на объект с целью ошеломить и подавить противника. Скорость – ключевой фактор. Используются взрывчатка, тараны, дробовики для отстрела замков.</p><div class="section-subtitle">Способы движения и распределение секторов</div><p>Головной боец открывает дверь (таран/дробовик), отступает, внутрь забрасывается светошумовая граната. Номер 1 входит, зачищает правый/левый сектор. Номер 2 – противоположный. После команды «Чисто! Пошел!» двигаются №3 и №4. Прикрывающий контролирует тыл.</p><p><strong>Способы «крючок» и «крест»</strong>: «крючок» – одновременный вход с колена у косяков (требуется широкая дверь); «крест» – диагональное пересечение проёма, №1 в низкой стойке, №2 нависает сверху.</p><p><strong>Способы «угол» и «диагональ»</strong> – для работы у стены и зачистки последних помещений. Для четвёрки – синхронное «растекание по стенам».</p><div class="manual-img">[Схема: «Крест» – №1 и №2 пересекают проём по диагонали, зачищая мёртвые зоны. «Крючок» – одновременный вход с колена у косяков.]</div><div class="section-subtitle">Действия тройки (лидер, прикрывающий, охраняющий)</div><p>Движение «листом клевера» (треугольник). Физический контакт, контроль коридоров, углов, Т-образных пересечений. При зачистке дверей – «пакет», затем проникновение.</p><div class="section-subtitle">Штурм смежных комнат</div><p>№1 и №2 врываются в первую, №3 и №4 забрасывают гранатами вторую и входят после взрыва.</p><div class="badge">Скорость, агрессия, сюрприз (SAS) – основа успеха.</div></div></div>
-        <div id="ter8-interrogation" class="tab-content"><div class="card"><div class="card-title">Памятка по допросу военнопленных (опросный лист)</div><div class="list"><li>1. ФИО | "Позывной"</li><li>2. Звание</li><li>3. Национальность</li><li>4. Дата рождения</li><li>5. Семейное положение</li><li>6. Фактический адрес проживания до военной службы</li><li>7. Подразделение</li><li>8. Номер воинской части</li><li>9. Кто командует вашим подразделением?</li><li>10. Отношение к ВСУ?</li><li>11. Образование и военная специализация</li><li>12. Отношение к своему правительству и военному руководству</li><li>13. Желание сотрудничать</li><li>14. Случаи дезертирства или недовольства в части</li><li>15. Почему вы воюете за этот режим?</li><li>16. Ваше командование считает вас предателем?</li><li>17. Цель боевого выхода</li><li>18. Состав группы, с кем выходили</li><li>19. Нуждаетесь ли в медицинской помощи</li><li>20. Желание передать весточку на ту сторону</li><li>21. Какие виды оружия и бронетехники есть в вашей части?</li></div><hr><p class="card-sub">Допрос должен проводиться в соответствии с Женевскими конвенциями, без пыток, с фиксацией показаний.</p><div class="badge">Соблюдать закон, извлекать разведывательную информацию.</div></div></div>
+
+        <div id="ter8-info" class="tab-content active-content">
+            <div class="card">
+                <div class="card-title">8-е территориальное управление</div>
+                <div class="card-sub">Служба безопасности Украины (СБУ) создана в 1991 году. Государственный орган, отвечающий за защиту национальной безопасности, разведку и контрразведку.</div>
+
+                <div class="section-subtitle">Основные функции СБУ</div>
+                <ul class="list">
+                    <li>Контрразведка – выявление и предотвращение деятельности иностранных спецслужб (шпионаж, диверсии).</li>
+                    <li>Борьба с терроризмом – предотвращение терактов, поиск террористических групп и их нейтрализация.</li>
+                    <li>Защита государственной тайны – контроль сохранности секретной информации.</li>
+                    <li>Борьба с коррупцией и организованной преступностью.</li>
+                    <li>Экономическая безопасность – предотвращение незаконных действий, наносящих вред экономике.</li>
+                    <li>Оперативно-розыскная деятельность – сбор информации, проведение скрытых операций.</li>
+                </ul>
+                <div class="badge">Официальный регламент</div>
+            </div>
+        </div>
+
+        <div id="ter8-docsbind" class="tab-content">
+            <div class="card">
+                <div class="card-title">Бинды и служебная документация</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Фамилия И.О.</label>
+                        <input type="text" id="ter8Fio" placeholder="Шевченко А.М.">
+                    </div>
+                    <div class="form-group">
+                        <label>Звание</label>
+                        <input type="text" id="ter8Rank" placeholder="МЛЕЙТ">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Должность</label>
+                        <input type="text" id="ter8Pos" placeholder="ЗК">
+                    </div>
+                    <div class="form-group">
+                        <label>Номер жетона (6 цифр)</label>
+                        <input type="text" id="ter8Token" placeholder="123456">
+                    </div>
+                </div>
+                <button class="btn" id="genTer8Binds">Сгенерировать бинды</button>
+                <div id="ter8BindsArea" style="margin-top: 20px;"></div>
+
+                <hr style="border: none; border-top: 1px solid var(--border); margin: 24px 0;">
+
+                <div class="section-subtitle">Бинды – росписи и боевые задачи</div>
+                <div class="bind-card"><code class="bind-code">bind key "say /me поставил роспись за вооружение и боеприпасы в журнале"</code></div>
+                <div class="bind-card"><code class="bind-code">bind key "say /me выбил оружие и скрутил человека напротив; use weapon_cuff_rope"</code></div>
+                <div class="bind-card"><code class="bind-code">bind key "say /me забрал оружие, яды, средства связи и видео и т.д."</code></div>
+                <div class="bind-card"><code class="bind-code">bind key "say /y Сдавайся, морду в пiдлогу, iнакше ти помреш!"</code></div>
+                <div class="bind-card"><code class="bind-code">/ad [СБУ - ВЧ] Я, "Позывной" покидаю В/Ч в составе "N" человек. Техника: [указываем технику]</code></div>
+                <div class="bind-card"><code class="bind-code">/ad [ППП-ВЧ] Докладывает: [Фамилия И.О или Позывной] Пост: [название]. Количество постовых - [число]. Код: D2.</code></div>
+            </div>
+        </div>
+
+        <div id="ter8-drill" class="tab-content">
+            <div class="card">
+                <div class="card-title">Учебная лекция: Основы строевой подготовки СБУ</div>
+                <div class="card-sub">Дисциплина «Строевая подготовка» для личного состава</div>
+                <p><strong>Цель занятия:</strong> сформировать у обучаемых навыки действий в строю, отработать выполнение строевых приёмов, развить чёткость и согласованность выполнения команд.</p>
+
+                <div class="section-subtitle">Понятие строя и его элементы</div>
+                <p>Строй — установленное размещение личного состава для совместных действий. Основные элементы: фронт, тыл, фланги (правый и левый), дистанция, интервал. Виды строя: развернутый строй, походный строй (колонны различного вида).</p>
+
+                <div class="section-subtitle">Строевая стойка</div>
+                <p>Строевая стойка принимается по команде «СМИРНО». Требования: пятки вместе, носки разведены; ноги выпрямлены; корпус прямой, слегка подан вперёд; плечи развернуты; руки опущены вдоль тела; голова держится прямо, взгляд направлен вперёд. <strong>Запрещается:</strong> разговаривать, двигаться без команды, отвлекаться.</p>
+
+                <div class="section-subtitle">Повороты на месте</div>
+                <p>Выполняются по командам: «Напра-ВО», «Нале-ВО», «Кру-ГОМ». Требования: выполнение на счёт, сохранение равновесия, одновременность действий.</p>
+
+                <div class="section-subtitle">Движение строем</div>
+                <p>Движение осуществляется шагом: строевым или походным. Основные требования: единый темп движения, соблюдение дистанции и интервала, синхронность. При движении корпус сохраняет прямое положение, руки двигаются свободно и согласованно.</p>
+
+                <div class="section-subtitle">Выполнение строевых команд</div>
+                <p>Команды подразделяются на предварительные и исполнительные. Требования: немедленное реагирование, точность, чёткость.</p>
+
+                <div class="section-subtitle">Перестроения</div>
+                <p>Перестроения выполняются по команде командира. Основные виды: из колонны в линию, из линии в колонну, изменение направления движения.</p>
+
+                <div class="section-subtitle">Требования безопасности и дисциплины</div>
+                <p>Строгое соблюдение команд, недопущение самовольных действий, поддержание установленного порядка.</p>
+
+                <div class="section-subtitle">Заключение</div>
+                <p>Строевая подготовка является основой воинской дисциплины и важным элементом подготовки личного состава. В результате обучения обучаемые должны: знать основные элементы строя, уметь выполнять строевые приёмы, действовать слаженно в составе подразделения.</p>
+                <p><strong>Контрольные вопросы:</strong> 1. Что такое строй и его элементы? 2. Как принимается строевая стойка? 3. Какие виды движения применяются в строю? 4. Как классифицируются команды?</p>
+                <div class="badge">Материал утвержден управлением строевой подготовки</div>
+            </div>
+        </div>
+
+        <div id="ter8-radio" class="tab-content">
+            <div class="card">
+                <div class="card-title">Правила радиообмена</div>
+                <div class="card-sub">Для точной координации действий бойцов и успешного выполнения боевой задачи.</div>
+                <p><strong>Настройка рации:</strong> берём в руки рацию с видом от 1-го лица, нажимаем на кнопку C и затем среднюю кнопку мыши (колёсико), после этого вводим необходимую частоту. Командир взвода ставит себе позывной на время боевых действий. При необходимости командир подаёт команду "Сдвиг" — переход на резервную частоту. Пример: «Шторм. сдвиг на резерв 1».</p>
+
+                <div class="section-subtitle">Правила радиообмена:</div>
+                <ul class="list">
+                    <li>Информировать себя кратким и понятным позывным.</li>
+                    <li>Продумать информацию, затем говорить её в радиообмен.</li>
+                    <li>Говорить информацию просто и кратко.</li>
+                    <li>Передавать меньше посторонней информации.</li>
+                    <li>Заканчивать передачу словом «Приём».</li>
+                    <li>Не перебивать передающих, не имея срочной информации.</li>
+                </ul>
+
+                <div class="section-subtitle">Фазы разговора</div>
+                <p>1. Начало разговора: представиться самому и назвать того, к кому обращаетесь. Пример: «Топаз, это Шторм. Приём» → «Топаз Шторму. Приём» → «Шторм на связи. Приём».</p>
+                <p>2. Тело разговора: информация передаётся кратко и чётко. Пример: «Топаз Шторму. Занял высоту 2. Жду подкрепления. Приём.»</p>
+                <p>3. Окончание разговора – подтверждение.</p>
+                <p><strong>Общение между группами имеет приоритет перед общением между солдатами!</strong> Если боевую задачу выполняет несколько взводов, командиры групп отзываются только на свои позывные.</p>
+
+                <div class="section-subtitle">Нецензурная брань в радиообмене</div>
+                <p>Нецензурная ругань может использоваться для сокращения слов в передаче информации. Оскорбительные высказывания применяются в сторону противника. Пример: «Топаз. ёбни хуйню справа».</p>
+                <div class="badge">Эфир – это воздух боя. Берегите время.</div>
+            </div>
+        </div>
+
+        <div id="ter8-medical" class="tab-content">
+            <div class="card">
+                <div class="card-title">Медицинская памятка для сотрудников 8-го терр. управления</div>
+
+                <div class="section-subtitle">Разделение боевой обстановки</div>
+                <p><strong>Красная зона</strong> – эпицентр боя. Раненому не делают сложных перевязок, лишь бегло осматривают, при сильном кровотечении накладывают жгут и немедленно транспортируют в жёлтую зону. <strong>Жёлтая зона</strong> – укрытие, где производится вторичный осмотр, тщательная перевязка, ослабление жгутов. <strong>Зелёная зона</strong> – передача опытным медикам в полевом госпитале.</p>
+
+                <div class="section-subtitle">Средства первой помощи</div>
+                <p>Тактическая аптечка включает: полевую компрессионную повязку, декомпрессионную иглу, тактические ножницы, стерильные перчатки, бинты, лейкопластырь, жгуты, набор медикаментов.</p>
+
+                <div class="section-subtitle">Виды кровотечений и оказание ПМП</div>
+                <ul class="list">
+                    <li><strong>Капиллярное</strong> – обработка антисептиком, пластырь.</li>
+                    <li><strong>Венозное</strong> – обработать антисептиком, подложить одежду под жгут, наложить жгут выше раны на 5-7 см, записка с датой/временем.</li>
+                    <li><strong>Артериальное</strong> – немедленный жгут (выше на 5-7 см) с запиской, максимально туго.</li>
+                    <li><strong>Смешанное</strong> (отрыв конечности) – протезирование или жгут в крайнем случае.</li>
+                </ul>
+
+                <div class="section-subtitle">Переломы</div>
+                <p>Симптомы: резкая боль, деформация, невозможность движений, отёк, при открытом – видна кость. <strong>Запрещено:</strong> вправлять кость, выпрямлять конечность, перемещать пострадавшего без нужды, заливать в рану спирт/йод.</p>
+                <p><strong>Лечение:</strong> при открытом – остановить кровь и обработать рану; при закрытом – обезболить холодом, обездвижить с помощью шины на два ближайших сустава. Шина накладывается поверх одежды, можно использовать подручные материалы (доски, палки).</p>
+                <div class="badge">Правило: не навреди, стабилизируй и эвакуируй.</div>
+            </div>
+        </div>
+
+        <div id="ter8-assault" class="tab-content">
+            <div class="card">
+                <div class="card-title">Тактика действий при штурме и зачистке помещений</div>
+                <div class="card-sub">Динамичная атака vs скрытное проникновение. Оптимальная группа – 4-5 человек.</div>
+                <p>Динамичная атака – стремительное проникновение на объект с целью ошеломить и подавить противника. Скорость – ключевой фактор. Используются взрывчатка, тараны, дробовики для отстрела замков.</p>
+
+                <div class="section-subtitle">Способы движения и распределение секторов</div>
+                <p>Головной боец открывает дверь (таран/дробовик), отступает, внутрь забрасывается светошумовая граната. Номер 1 входит, зачищает правый/левый сектор. Номер 2 – противоположный. После команды «Чисто! Пошел!» двигаются №3 и №4. Прикрывающий контролирует тыл.</p>
+                <p><strong>Способы «крючок» и «крест»</strong>: «крючок» – одновременный вход с колена у косяков (требуется широкая дверь); «крест» – диагональное пересечение проёма, №1 в низкой стойке, №2 нависает сверху.</p>
+                <p><strong>Способы «угол» и «диагональ»</strong> – для работы у стены и зачистки последних помещений. Для четвёрки – синхронное «растекание по стенам».</p>
+
+                <div class="manual-img">[Схема: «Крест» – №1 и №2 пересекают проём по диагонали, зачищая мёртвые зоны. «Крючок» – одновременный вход с колена у косяков.]</div>
+
+                <div class="section-subtitle">Действия тройки (лидер, прикрывающий, охраняющий)</div>
+                <p>Движение «листом клевера» (треугольник). Физический контакт, контроль коридоров, углов, Т-образных пересечений. При зачистке дверей – «пакет», затем проникновение.</p>
+
+                <div class="section-subtitle">Штурм смежных комнат</div>
+                <p>№1 и №2 врываются в первую, №3 и №4 забрасывают гранатами вторую и входят после взрыва.</p>
+                <div class="badge">Скорость, агрессия, сюрприз (SAS) – основа успеха.</div>
+            </div>
+        </div>
+
+        <div id="ter8-interrogation" class="tab-content">
+            <div class="card">
+                <div class="card-title">Памятка по допросу военнопленных (опросный лист)</div>
+                <ul class="list">
+                    <li>1. ФИО | "Позывной"</li>
+                    <li>2. Звание</li>
+                    <li>3. Национальность</li>
+                    <li>4. Дата рождения</li>
+                    <li>5. Семейное положение</li>
+                    <li>6. Фактический адрес проживания до военной службы</li>
+                    <li>7. Подразделение</li>
+                    <li>8. Номер воинской части</li>
+                    <li>9. Кто командует вашим подразделением?</li>
+                    <li>10. Отношение к ВСУ?</li>
+                    <li>11. Образование и военная специализация</li>
+                    <li>12. Отношение к своему правительству и военному руководству</li>
+                    <li>13. Желание сотрудничать</li>
+                    <li>14. Случаи дезертирства или недовольства в части</li>
+                    <li>15. Почему вы воюете за этот режим?</li>
+                    <li>16. Ваше командование считает вас предателем?</li>
+                    <li>17. Цель боевого выхода</li>
+                    <li>18. Состав группы, с кем выходили</li>
+                    <li>19. Нуждаетесь ли в медицинской помощи</li>
+                    <li>20. Желание передать весточку на ту сторону</li>
+                    <li>21. Какие виды оружия и бронетехники есть в вашей части?</li>
+                </ul>
+                <p class="card-sub" style="margin-top: 16px;">Допрос должен проводиться в соответствии с Женевскими конвенциями, без пыток, с фиксацией показаний.</p>
+                <div class="badge">Соблюдать закон, извлекать разведывательную информацию.</div>
+            </div>
+        </div>
     </div>
 
     <footer>ⓘ Служебные материалы для сервера MST Operation. Неофициальный документ.</footer>
 </div>
 
 <script>
-    // Переключение подразделений
+    // ==================== UNIT SWITCHER ====================
     const unitBtns = document.querySelectorAll('.unit-btn');
     const containers = {
         cso: document.getElementById('unit-cso'),
@@ -415,6 +814,7 @@
         gsu: { main: 'Главное следственное управление', sub: 'СБУ | ГСУ | Следственная документация' },
         ter8: { main: '8-е территориальное управление', sub: 'Служба безопасности Украины | Оперативные наставления' }
     };
+
     function setActiveUnit(unit) {
         Object.keys(containers).forEach(key => containers[key].classList.remove('active-unit'));
         containers[unit].classList.add('active-unit');
@@ -422,13 +822,13 @@
             btn.classList.remove('active');
             if (btn.dataset.unit === unit) btn.classList.add('active');
         });
-        document.body.className = `theme-${unit === 'cso' ? 'cso' : (unit === 'gsu' ? 'gsu' : '8')}`;
+        document.body.className = 'theme-' + (unit === 'cso' ? 'cso' : (unit === 'gsu' ? 'gsu' : 'ter8'));
         document.getElementById('mainTitle').innerText = titles[unit].main;
         document.getElementById('mainSub').innerText = titles[unit].sub;
     }
     unitBtns.forEach(btn => btn.addEventListener('click', () => setActiveUnit(btn.dataset.unit)));
 
-    // Функция инициализации табов для каждого контейнера
+    // ==================== TABS ====================
     function initTabs(containerId) {
         const container = document.getElementById(containerId);
         if (!container) return;
@@ -450,83 +850,120 @@
     initTabs('unit-gsu');
     initTabs('unit-ter8');
 
-    // Генераторы биндов
-    function makeGenerator(prefix, fioId, rankId, posId, idId, medalsId, areaId, isGsu=false, isTer8=false) {
-        const genBtn = document.getElementById(`gen${prefix}Binds`);
-        if (!genBtn) return;
-        const update = () => {
-            let fio = document.getElementById(fioId)?.value.trim() || '[ФИО]';
-            let rank = document.getElementById(rankId)?.value.trim() || '[Звание]';
-            let pos = document.getElementById(posId)?.value.trim() || '[Должность]';
-            let num = document.getElementById(idId)?.value.trim() || '[Номер]';
-            let medals = medalsId ? (document.getElementById(medalsId)?.value.trim() || '[Знаки отличия]') : '';
-            if (fio === '') fio = '[ФИО]';
-            if (rank === '') rank = '[Звание]';
-            if (pos === '') pos = '[Должность]';
-            if (num === '') num = '[Номер]';
-            let binds = [];
-            if (isTer8) {
-                binds = [
-                    `bind key "say /me показал жетон военнослужащего ${num} | [СБУ]"`,
-                    `bind key "say /me показал служебное удостоверение: СБУ | ${fio} | ${rank} | ${pos}`,
-                    `bind key "say /me показал служеб. уд-ение: СБУ | ${fio} | ${rank} | ${pos}`,
-                    `bind key "say /me показал служебное удостоверение СБУ в закрытом виде"`
-                ];
-            } else if (isGsu) {
-                binds = [
-                    `bind key "say /me показал военный билет: ${num} ${fio} ${rank} [ГСУ СБУ] ${pos} [${medals}]`,
-                    `bind key "say /me показал служ. уд-е: ${fio} ${rank} [ГСУ СБУ] ${pos}`,
-                    `bind key "say /me Показал служ. уд-е: ГСУ СБУ в закрытом виде"`
-                ];
-            } else {
-                binds = [
-                    `bind key "say /me показал В/Б: ${num} ${fio} ${rank} [ЦСО СБУ А] ${pos} [${medals}]`,
-                    `bind key "say /me показал служ. уд-е: ${fio} ${rank} [ЦСО СБУ А] ${pos}`,
-                    `bind key "say /me Показал служ. уд-е: ЦСО СБУ А в закрытом виде"`
-                ];
-            }
-            const area = document.getElementById(areaId);
-            if (area) {
-                const bindDivs = area.querySelectorAll('.bind-card');
-                for (let i=0; i<bindDivs.length && i<binds.length; i++) {
-                    let span = bindDivs[i].querySelector('.bind-code');
-                    if (span) span.innerText = binds[i];
-                }
-            }
-        };
-        genBtn.addEventListener('click', update);
-        [fioId, rankId, posId, idId].forEach(id => {
-            let inp = document.getElementById(id);
-            if (inp) inp.addEventListener('input', update);
-        });
-        if (medalsId) { let inp = document.getElementById(medalsId); if (inp) inp.addEventListener('input', update); }
-        update();
+    // ==================== BIND GENERATORS ====================
+    function createBindCard(code) {
+        const div = document.createElement('div');
+        div.className = 'bind-card';
+        div.innerHTML = '<div class="flex-between"><code class="bind-code">' + escapeHtml(code) + '</code><button class="copy-btn">Копировать</button></div>';
+        return div;
     }
-    makeGenerator('Cso', 'csoFio','csoRank','csoPos','csoId','csoMedals','csoBindsArea', false, false);
-    makeGenerator('Gsu', 'gsuFio','gsuRank','gsuPos','gsuId','gsuMedals','gsuBindsArea', true, false);
-    makeGenerator('Ter8', 'ter8Fio','ter8Rank','ter8Pos','ter8Token','', 'ter8BindsArea', false, true);
 
-    // Копирование
-    function bindCopy() {
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    function setupGenerator(prefix, fields, buildFn, areaId) {
+        const genBtn = document.getElementById('gen' + prefix + 'Binds');
+        const area = document.getElementById(areaId);
+        if (!genBtn || !area) return;
+
+        const inputs = {};
+        fields.forEach(f => {
+            inputs[f] = document.getElementById(prefix + f);
+        });
+
+        function generate() {
+            const values = {};
+            fields.forEach(f => {
+                values[f] = (inputs[f] && inputs[f].value.trim()) || '';
+            });
+            const binds = buildFn(values);
+            area.innerHTML = '';
+            binds.forEach(code => {
+                area.appendChild(createBindCard(code));
+            });
+            attachCopyHandlers();
+        }
+
+        genBtn.addEventListener('click', generate);
+        Object.values(inputs).forEach(inp => {
+            if (inp) inp.addEventListener('input', generate);
+        });
+        generate(); // initial
+    }
+
+    // ЦСО
+    setupGenerator('Cso', ['Fio', 'Rank', 'Pos', 'Id', 'Medals'], (v) => {
+        const fio = v.Fio || '[ФИО]';
+        const rank = v.Rank || '[Звание]';
+        const pos = v.Pos || '[Должность]';
+        const num = v.Id || '[Номер]';
+        const medals = v.Medals || '[Знаки отличия]';
+        return [
+            'bind key "say /me показал В/Б: ' + num + ' ' + fio + ' ' + rank + ' [ЦСО СБУ А] ' + pos + ' [' + medals + ']"',
+            'bind key "say /me показал служ. уд-е: ' + fio + ' ' + rank + ' [ЦСО СБУ А] ' + pos + '"',
+            'bind key "say /me Показал служ. уд-е: ЦСО СБУ А в закрытом виде"'
+        ];
+    }, 'csoBindsArea');
+
+    // ГСУ
+    setupGenerator('Gsu', ['Fio', 'Rank', 'Pos', 'Id', 'Medals'], (v) => {
+        const fio = v.Fio || '[ФИО]';
+        const rank = v.Rank || '[Звание]';
+        const pos = v.Pos || '[Должность]';
+        const num = v.Id || '[Номер]';
+        const medals = v.Medals || '[Знаки отличия]';
+        return [
+            'bind key "say /me показал военный билет: ' + num + ' ' + fio + ' ' + rank + ' [ГСУ СБУ] ' + pos + ' [' + medals + ']"',
+            'bind key "say /me показал служ. уд-е: ' + fio + ' ' + rank + ' [ГСУ СБУ] ' + pos + '"',
+            'bind key "say /me Показал служ. уд-е: ГСУ СБУ в закрытом виде"'
+        ];
+    }, 'gsuBindsArea');
+
+    // Ter8
+    setupGenerator('Ter8', ['Fio', 'Rank', 'Pos', 'Token'], (v) => {
+        const fio = v.Fio || '[ФИО]';
+        const rank = v.Rank || '[Звание]';
+        const pos = v.Pos || '[Должность]';
+        const token = v.Token || '[Номер жетона]';
+        return [
+            'bind key "say /me показал жетон военнослужащего ' + token + ' | [СБУ]"',
+            'bind key "say /me показал служебное удостоверение: СБУ | ' + fio + ' | ' + rank + ' | ' + pos + '"',
+            'bind key "say /me показал служеб. уд-ение: СБУ | ' + fio + ' | ' + rank + ' | ' + pos + '"',
+            'bind key "say /me показал служебное удостоверение СБУ в закрытом виде"'
+        ];
+    }, 'ter8BindsArea');
+
+    // ==================== COPY HANDLER ====================
+    function attachCopyHandlers() {
         document.querySelectorAll('.copy-btn').forEach(btn => {
             btn.removeEventListener('click', copyHandler);
             btn.addEventListener('click', copyHandler);
         });
     }
+
     function copyHandler(e) {
         const btn = e.currentTarget;
         const parent = btn.closest('.bind-card');
-        const codeSpan = parent?.querySelector('.bind-code');
+        const codeSpan = parent ? parent.querySelector('.bind-code') : null;
         if (codeSpan) {
             navigator.clipboard.writeText(codeSpan.innerText).then(() => {
-                let orig = btn.innerText;
-                btn.innerText = 'Скопировано';
-                setTimeout(() => btn.innerText = orig, 1500);
-            }).catch(() => alert('Ошибка копирования'));
+                const orig = btn.innerText;
+                btn.innerText = '✓ Скопировано';
+                setTimeout(() => { btn.innerText = orig; }, 1500);
+            }).catch(() => {
+                alert('Ошибка копирования');
+            });
         }
     }
-    bindCopy();
-    const observer = new MutationObserver(() => bindCopy());
+
+    // Initial attach
+    attachCopyHandlers();
+
+    // Also attach on DOM changes (for generated binds)
+    const observer = new MutationObserver(() => attachCopyHandlers());
     observer.observe(document.body, { childList: true, subtree: true });
 </script>
 </body>
